@@ -34,7 +34,7 @@ const Calc = () => {
       alignItems="center"
       justifyContent="space-around"
     >
-      <img src="public/logo.png" width="300px" height="150px" />
+      <img src="./logo.png" width="300px" height="150px" />
       <Title />
       <Calculator />
       <MyButton
