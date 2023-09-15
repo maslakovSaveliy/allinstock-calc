@@ -29,7 +29,7 @@ const Calc = () => {
     <Box
       display="flex"
       width={matches ? "80%" : "100%"}
-      height="100vh"
+      height="100dvh"
       flexDirection="column"
       alignItems="center"
       justifyContent="space-around"
