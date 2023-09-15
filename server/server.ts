@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import config from "config";
@@ -13,11 +13,11 @@ let courseValue: number = 13.6;
 let pass: string = config.get("PASSWORD");
 let time: string = "";
 
-app.get("/api/course", (req: Request, res: Response) => {
+app.get("/api/course", (req: express.Request, res: express.Response) => {
   res.json({ course: courseValue, time: time });
 });
 
-app.post("/api/pass", (req: Request, res: Response) => {
+app.post("/api/pass", (req: express.Request, res: express.Response) => {
   const password = req.body.password;
 
   const auth = password === pass;
@@ -32,7 +32,7 @@ app.post("/api/pass", (req: Request, res: Response) => {
   }
 });
 
-app.post("/api/course", (req: Request, res: Response) => {
+app.post("/api/course", (req: express.Request, res: express.Response) => {
   const password = req.body.password;
 
   const auth = password === pass;

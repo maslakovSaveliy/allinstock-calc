@@ -4,6 +4,7 @@ import { Context } from "./context/context";
 import { Box } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import { api } from "./Service/api";
 
 function App() {
   const [course, setCourse] = useState<number>(0);
@@ -13,22 +14,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pass, setPass] = useState<string>(localStorage.getItem("pass") || "");
 
-  const getCourse = async () => {
-    setIsLoading(true);
-    await fetch("http://localhost:3000/api/course")
-      .then((response) => response.json())
-      .then((data) => {
-        setCourse(data.course);
-        setTime(data.time);
-      })
-      .catch((error) => {
-        console.error("Произошла ошибка при получении значения course:", error);
-      });
-    setIsLoading(false);
-  };
-
   useEffect(() => {
-    getCourse();
+    api.getCourse(setCourse, setTime, setIsLoading);
   }, []);
 
   return (
