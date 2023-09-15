@@ -38,7 +38,6 @@ const Calc = () => {
       <Title />
       <Calculator />
       <MyButton
-        sx={{ marginBottom: "5%" }}
         variant="contained"
         size="large"
         onClick={() => window.open("https://t.me/m_allinstck")}
