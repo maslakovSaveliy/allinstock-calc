@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node server.ts",
-    "vercel-build": "echo hello"
+    "vercel-build": "cross-env NODE_ENV=production ts-node server.ts"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
