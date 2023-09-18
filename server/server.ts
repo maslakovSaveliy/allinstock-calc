@@ -64,3 +64,5 @@ app.post("/api/course", (req: express.Request, res: express.Response) => {
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
 });
+
+export default app;

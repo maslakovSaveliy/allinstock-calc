@@ -5,6 +5,19 @@ import { Box } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { api } from "./Service/api";
+import mongoose from "mongoose";
+
+const DB_URL = `mongodb+srv://allinstock:${
+  import.meta.env.VITE_PASS
+}@cluster0.ed6kcxp.mongodb.net/?retryWrites=true&w=majority`;
+mongoose
+  .connect(DB_URL)
+  .then(() => {
+    console.log("DB Connect");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 function App() {
   const [course, setCourse] = useState<number>(0);
