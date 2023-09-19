@@ -12,7 +12,7 @@ function App() {
   const [order, setOrder] = useState<number | string>("");
   const [price, setPrice] = useState<string>("0");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [pass, setPass] = useState<string>(localStorage.getItem("pass") || "");
+  const [pass, setPass] = useState<string>("");
 
   useEffect(() => {
     api.getCourse(setCourse, setTime, setIsLoading);

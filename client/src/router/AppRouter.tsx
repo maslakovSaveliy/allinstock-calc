@@ -9,7 +9,7 @@ const AppRouter = () => {
   const [auth, setAuth] = useState<boolean>(false);
 
   const checkPass = async () => {
-    const passBD = await api.getPass(pass ?? "");
+    const passBD = await api.getPass();
     if (pass === passBD) {
       setAuth(true);
     } else {
@@ -19,7 +19,7 @@ const AppRouter = () => {
 
   useEffect(() => {
     checkPass();
-  }, []);
+  }, [auth, pass]);
 
   return auth ? (
     <Routes>

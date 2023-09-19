@@ -1,43 +1,28 @@
 import { Dispatch } from "react";
+import { db } from "./firebase";
+import { ref, onValue, update } from "firebase/database";
 
 class API {
-  async getPass(pass: string) {
-    const data = await fetch(
-      "https://test-onhvm.run-eu-central1.goorm.site/api/pass",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:5173",
-        },
-        body: JSON.stringify({ password: pass }),
+  async getPass() {
+    let dbPass: string | undefined;
+    await onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+      if (data !== null) {
+        dbPass = data.pass;
       }
-    )
-      .then((res) => res.json())
-      .catch((error) => {
-        console.error(error);
-      });
-    return data.password;
+    });
+    return dbPass;
   }
 
   async changeCourse(
     input: number | string,
     setCourse: Dispatch<React.SetStateAction<string | number>>
   ) {
-    await fetch("https://test-onhvm.run-eu-central1.goorm.site/api/course", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:5173",
-      },
-      body: JSON.stringify({
-        course: Number(input),
-        password: localStorage.getItem("pass"),
-      }),
-    }).catch((error) => {
-      console.error("Произошла ошибка при изменении значения course:", error);
-    });
-
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const currentTime = `${hours}:${minutes}`;
+    update(ref(db, "/course"), { course: input, time: currentTime });
     setCourse(input);
   }
 
@@ -47,21 +32,13 @@ class API {
     setIsLoading: Dispatch<React.SetStateAction<boolean>>
   ) {
     setIsLoading(true);
-    await fetch("https://test-onhvm.run-eu-central1.goorm.site/api/course", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://http://localhost:5173",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCourse(data.course);
-        setTime(data.time);
-      })
-      .catch((error) => {
-        console.error("Произошла ошибка при получении значения course:", error);
-      });
+    await onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+      if (data !== null) {
+        setCourse(data.course.course);
+        setTime(data.course.time);
+      }
+    });
     setIsLoading(false);
   }
 }

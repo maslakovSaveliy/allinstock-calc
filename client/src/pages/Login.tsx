@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const getAuth = async () => {
-    const passBD = await api.getPass(pass);
+    const passBD = await api.getPass();
     if (pass === passBD) {
       localStorage.setItem("pass", pass);
       await navigate("/admin");
