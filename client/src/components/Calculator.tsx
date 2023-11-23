@@ -9,7 +9,7 @@ const Calculator = () => {
 
   useEffect(() => {
     const ord = order ? order : 0;
-    const result = (ord * 1.08 * course).toFixed(2);
+    const result = (ord * 1.1 * course).toFixed(2);
     setPrice(result);
   }, [course, order]);
 
