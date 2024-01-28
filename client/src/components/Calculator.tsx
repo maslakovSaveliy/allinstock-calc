@@ -9,8 +9,16 @@ const Calculator = () => {
 
   useEffect(() => {
     const ord = order ? order : 0;
-    const result = (ord * 1.1 * course).toFixed(2);
-    setPrice(result);
+    if (ord < 501) {
+      const result = (ord * 1.12 * course).toFixed(2);
+      setPrice(result);
+    } else if (ord < 1001) {
+      const result = (ord * 1.1 * course).toFixed(2);
+      setPrice(result);
+    } else {
+      const result = (ord * 1.08 * course).toFixed(2);
+      setPrice(result);
+    }
   }, [course, order]);
 
   const handleChange = (
